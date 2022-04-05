@@ -48,10 +48,8 @@ const checkImageForAmongy = (data) => {
     for (let y = 0; y < canvas.width; y++)
         for (let x = 0; x < canvas.height; x++) {
             if (canvasArray[x] && canvasArray[x][y]) return;
-            // checkVariant(data, testVariant, x, y);
+            console.log(checkVariant(data, testVariant, x, y));
         }
-
-    checkVariant(data, testVariant, 0, 0);
 }
 
 const checkVariant = (data, variant, startX, startY) => {
@@ -65,12 +63,14 @@ const checkVariant = (data, variant, startX, startY) => {
         if (!checkCords(x, y)) return false;
         
         let color = getRGBFromCords(data, x, y);
-        console.log(`${x} : ${y}`)
-        console.log(color);
-        // for (let cv = 0; cv < cord.c.length; cv++) {
-        //     if ()
-        // }
+        for (let cv = 0; cv < cord.c.length; cv++) {
+            if (!colors[cord.c[cv]])
+                colors[cord.c[cv]] = color;
+            else if (!colors[cord.c[cv]] == color)
+                return false;
+        }
     }
+    return true;
 }
 
 const checkCords = (x, y) => {
@@ -78,11 +78,8 @@ const checkCords = (x, y) => {
 }
 
 const getRGBFromCords = (data, x, y) => {
-    console.log(y * 4 + x * 4 + 0)
-    console.log(y * 4 + x * 4 + 1)
-    console.log(y * 4 + x * 4 + 2)
-    const r = data[y * 4 + x * 4 + 0];
-    const g = data[y * 4 + x * 4 + 1];
-    const b = data[y * 4 + x * 4 + 2];
+    const r = data[canvas.width * y * 4 + x * 4 + 0];
+    const g = data[canvas.width * y * 4 + x * 4 + 1];
+    const b = data[canvas.width * y * 4 + x * 4 + 2];
     return [r, g, b];
 }
