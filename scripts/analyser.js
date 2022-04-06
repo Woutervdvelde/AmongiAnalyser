@@ -95,6 +95,7 @@ const shortboy = new Variant(
 //Order is very important here, check for bigger variants first because it will (almost) always find the smaller variant in the bigger variant.
 const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)];
 
+const analyseButton = document.getElementById("btn-analyse");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d');
 
@@ -110,23 +111,36 @@ window.onload = async () => {
     ctx.drawImage(place, 0, 0);
 }
 
+const loadIcon = () => {
+    let element = document.createElement("DIV");
+    element.classList.add("load-icon");
+    return element;
+}
+
 const checkImageForAmongy = () => {
-    let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    for (let y = 0; y < canvas.width; y++)
-        for (let x = 0; x < canvas.height; x++) {
-            if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
+    analyseButton.innerHTML = loadIcon().outerHTML;
 
-            for (let i = 0; i < variants.length; i++) {
-                pixels = checkVariant(data, variants[i], x, y);
-                if (!pixels) continue;
-                addVariantToMatrix(pixels);
-                amongyCollection.push(new Amongy(variants[i].type, pixels));
-                break;
+    //set timeout to let the load icon appear, this may be fixed when switched to a worker.
+    setTimeout(() => {
+        let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        for (let y = 0; y < canvas.width; y++)
+            for (let x = 0; x < canvas.height; x++) {
+                if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
+
+                for (let i = 0; i < variants.length; i++) {
+                    pixels = checkVariant(data, variants[i], x, y);
+                    if (!pixels) continue;
+                    addVariantToMatrix(pixels);
+                    amongyCollection.push(new Amongy(variants[i].type, pixels));
+                    break;
+                }
             }
-        }
 
-    addDarkOverlay(.8);
-    showAmongy();
+        initialiseCanvas()
+        addDarkOverlay(.8);
+        showAmongy();
+        analyseButton.innerHTML = "Analyse";
+    }, 10);
 }
 
 const checkVariant = (data, variant, startX, startY) => {
@@ -177,6 +191,10 @@ const getRGBFromCords = (data, x, y) => {
     return `${r},${g},${b}`;
 }
 
+const initialiseCanvas = () => {
+    ctx.drawImage(place, 0, 0);
+}
+
 const addDarkOverlay = (percentage = .5) => {
     let ctx = canvas.getContext('2d');
     ctx.fillStyle = `rgba(0,0,0,${percentage})`;
@@ -184,7 +202,6 @@ const addDarkOverlay = (percentage = .5) => {
 }
 
 const showAmongy = () => {
-    let ctx = canvas.getContext('2d');
     amongyCollection.forEach(a => {
         a.pixels.forEach(p => {
             let [r, g, b] = p.color.split(",");
