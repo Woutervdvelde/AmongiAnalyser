@@ -1,4 +1,5 @@
 .test {
+    /* Transform only for testing purpuses (to make canvas seem bigger while retaining pixel width and height) */
     /* transform: scale(50) translateX(50%) translateY(50%); */
     image-rendering: pixelated;
 }
