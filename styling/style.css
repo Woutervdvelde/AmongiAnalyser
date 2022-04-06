@@ -1,5 +1,43 @@
-.test {
-    /* Transform only for testing purpuses (to make canvas seem bigger while retaining pixel width and height) */
-    /* transform: scale(50) translateX(50%) translateY(50%); */
+* {
+    margin: 0; padding: 0;
+}
+
+#camera {
+    display: block;
+    position: relative;
+    width: 75vw;
+    height: 50vh;
+    overflow: hidden;
+    overflow-y: hidden;
     image-rendering: pixelated;
+    margin: 0 auto;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+.camera-controls {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px 0 0 0;
+    border-width: 5px 0 0 5px;
+    background-color: rgba(255, 100, 50, .9);
+}
+
+.camera-controls button {
+    padding: .75rem 1rem;
+    border: none;
+    background: none;
+}
+
+#position-container {
+    position: absolute;
+}
+
+#zoom-container {
+    transform-origin: center;
+    position: relative;
 }

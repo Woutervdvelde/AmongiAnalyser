@@ -19,8 +19,18 @@
 </head>
 
 <body>
-    <!--Canvas width and height must be set to precise image dimensions-->
-    <canvas id="canvas" width="2000" height="2000" class="test"></canvas>
+    <div id="camera">
+        <div class="camera-controls">
+            <button onclick="reset()">Reset view</button>
+        </div>
+        <div id="position-container">
+            <div id="zoom-container">
+                <!--Canvas width and height must be set to precise image dimensions-->
+                <canvas id="canvas" width="2000" height="2000"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/canvas.js"></script>
     <script src="scripts/placeBase64.js"></script>
     <script src="scripts/analyser.js"></script>
 </body>

@@ -98,6 +98,7 @@ const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)
 const canvas = document.getElementById("canvas");
 const amongyCollection = [];
 const pixelMatrix = [[]]
+
 const place = new Image();
 place.src = base64Image;
 // place.src = testImage;
@@ -108,7 +109,7 @@ window.onload = async () => {
     ctx.drawImage(place, 0, 0);
 
     let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    checkImageForAmongy(data);
+    // checkImageForAmongy(data);
 }
 
 const checkImageForAmongy = (data) => {
@@ -125,7 +126,8 @@ const checkImageForAmongy = (data) => {
             }
         }
 
-
+    addDarkOverlay(.8);
+    showAmongy();
 }
 
 const checkVariant = (data, variant, startX, startY) => {
