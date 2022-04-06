@@ -9,7 +9,7 @@ Originally created for r/place. This app searches for amongy in pixel art.
 ## Current status
 - [x] Base system identifying the shape
 - [ ] Color variations inside amongy
-- [ ] Explorable canvas (zoom and move)
+- [x] Explorable canvas (zoom and move)
 - [ ] Show statistics (how many of which amongy)
 
 ## Thought process
