@@ -4,7 +4,7 @@
 </div>
 
 ## r/place
-Originally created for r/place. This app searches for amongy in pixel art.
+Originally created for r/place. This app searches for amongy in pixel art. Created in pure HTML5, CSS and JavaScript.
 
 ## Current status
 - [x] Base system identifying the shape

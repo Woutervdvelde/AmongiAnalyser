@@ -14,11 +14,21 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="./resources/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styling/style.css">
     <title>Amongy Analyser</title>
 </head>
 
 <body>
+    <div class="header">
+        <h1>AmongyAnalyser</h1>
+        <p>An app that analyses pixel art in search for amongy.</p>
+    </div>
+
     <div id="camera">
         <div class="camera-controls">
             <button onclick="reset()">Reset view</button>
@@ -30,6 +40,15 @@
             </div>
         </div>
     </div>
+
+    <div class="analyse-controls">
+        <button onclick="checkImageForAmongy()">Analyse</button>
+    </div>
+
+    <div class="stats">
+
+    </div>
+
     <script src="scripts/canvas.js"></script>
     <script src="scripts/placeBase64.js"></script>
     <script src="scripts/analyser.js"></script>
