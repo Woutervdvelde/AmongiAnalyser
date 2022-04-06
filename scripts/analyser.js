@@ -96,6 +96,8 @@ const shortboy = new Variant(
 const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)];
 
 const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext('2d');
+
 const amongyCollection = [];
 const pixelMatrix = [[]]
 
@@ -105,14 +107,11 @@ place.src = base64Image;
 // place.src = testImage2;
 
 window.onload = async () => {
-    let ctx = canvas.getContext('2d');
     ctx.drawImage(place, 0, 0);
-
-    let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    // checkImageForAmongy(data);
 }
 
-const checkImageForAmongy = (data) => {
+const checkImageForAmongy = () => {
+    let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
     for (let y = 0; y < canvas.width; y++)
         for (let x = 0; x < canvas.height; x++) {
             if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
