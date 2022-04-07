@@ -1,7 +1,4 @@
 const analyseButton = document.getElementById("btn-analyse");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext('2d');
-
 let amongyCollection;
 let pixelMatrix;
 
@@ -39,16 +36,6 @@ const checkImageForAmongy = () => {
         analyseButton.disabled = false;
         worker.terminate();
     }
-}
-
-const initialiseCanvas = () => {
-    ctx.drawImage(place, 0, 0);
-}
-
-const addDarkOverlay = (percentage = .5) => {
-    let ctx = canvas.getContext('2d');
-    ctx.fillStyle = `rgba(0,0,0,${percentage})`;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 const showAmongy = () => {

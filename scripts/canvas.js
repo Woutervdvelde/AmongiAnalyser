@@ -1,3 +1,5 @@
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 const camera = document.getElementById("camera");
 const positionContainer = document.getElementById("position-container");
 const zoomContainer = document.getElementById("zoom-container");
@@ -24,7 +26,7 @@ camera.onmouseup = stopDragging;
 camera.onmouseleave = stopDragging;
 
 camera.onmousemove = (e) => {
-    if (!dragging) return;
+    if (!dragging || e.target.closest(".camera-controls")) return;
     currentX = currentX + (e.movementX / zoom);
     currentY = currentY + (e.movementY / zoom);
     setTransform(currentX, currentY);
@@ -45,6 +47,16 @@ const reset = () => {
     currentY = 0;
     setTransform(currentX, currentY);
     setZoom(zoom);
+}
+
+const initialiseCanvas = () => {
+    ctx.drawImage(place, 0, 0);
+}
+
+const addDarkOverlay = (percentage = .5) => {
+    let ctx = canvas.getContext('2d');
+    ctx.fillStyle = `rgba(0,0,0,${percentage})`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 window.addEventListener("load", e => setTransform(0,0));

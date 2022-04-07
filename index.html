@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link rel="stylesheet" href="styling/style.css">
     <title>Amongy Analyser</title>
@@ -31,7 +32,12 @@
 
     <div id="camera">
         <div class="camera-controls">
+            <span class="material-icons material-icons-outlined">
+                tune
+            </span>
             <button onclick="reset()">Reset view</button>
+            <label for="overlay-slider">Overlay transparancy</label>
+            <input id="overlay-slider" type="range" min="0" max="100" />
         </div>
         <div id="position-container">
             <div id="zoom-container">
@@ -52,6 +58,7 @@
     <script src="scripts/canvas.js"></script>
     <script src="scripts/placeBase64.js"></script>
     <script src="scripts/analyseWorker.js"></script>
+    <script src="scripts/statistics.js"></script>
     <script src="scripts/analyser.js"></script>
 </body>
 

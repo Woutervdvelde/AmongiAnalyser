@@ -32,14 +32,25 @@
 
 .camera-controls {
     position: absolute;
+    display: block;
     right: 0;
     bottom: 0;
     z-index: 10;
     border-style: solid;
     border-color: black;
     border-radius: 10px 0 0 0;
-    border-width: 5px 0 0 5px;
-    background-color: rgba(255, 100, 50, .9);
+    border-width: 3px 0 0 3px;
+    background-color: white;
+    transform: translateX(140px) translateY(80px);
+    transition: 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.camera-controls:hover {
+    transform: translateX(0) translateY(0);
+}
+
+.camera-controls > * {
+    display: block;
 }
 
 .camera-controls button {
@@ -64,7 +75,6 @@
 .analyse-controls {
     display: flex;
     justify-content: center;
-
     margin: 1rem;
 }
 
