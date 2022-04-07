@@ -1,8 +1,8 @@
 const worker_function = () => {
     onmessage = (message) => {
-        checkImageForAmongy(message.data[0]);
         canvasWidth = message.data[1];
         canvasHeight = message.data[2];
+        checkImageForAmongy(message.data[0]);
     }
 
     class Amongy {
@@ -115,7 +115,7 @@ const worker_function = () => {
                 if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
 
                 for (let i = 0; i < variants.length; i++) {
-                    pixels = checkVariant(data, variants[i], x, y);
+                    let pixels = checkVariant(data, variants[i], x, y);
                     if (!pixels) continue;
                     addVariantToMatrix(pixels);
                     amongyCollection.push(new Amongy(variants[i].type, pixels));
@@ -123,7 +123,7 @@ const worker_function = () => {
                 }
             }
 
-        postMessage([amongyCollection, pixelMatrix])
+        postMessage([amongyCollection])
     }
 
     const checkVariant = (data, variant, startX, startY) => {
@@ -136,6 +136,7 @@ const worker_function = () => {
             let x = startX + cord.x;
             let y = startY + cord.y;
             if (!checkCords(x, y)) return false;
+            if (pixelMatrix[x] && pixelMatrix[x][y]) return false;
 
             let color = getRGBFromCords(data, x, y);
 

@@ -22,18 +22,22 @@ const loadIcon = () => {
 
 const checkImageForAmongy = () => {
     analyseButton.innerHTML = loadIcon().outerHTML;
+    analyseButton.disabled = true;
     let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
+    //used this workaround to load local worker file (https://stackoverflow.com/a/33432215/9470981)
     let worker = new Worker(URL.createObjectURL(new Blob(["("+worker_function.toString()+")()"], {type: 'text/javascript'})));
     worker.postMessage([data, canvas.width, canvas.height]);
 
     worker.onmessage = (message) => {
-        console.log(message);
-        // initialiseCanvas()
-        // addDarkOverlay(.8);
-        // showAmongy();
-        // analyseButton.innerHTML = "Analyse";
-        // worker.terminate();
+        amongyCollection = message.data[0];
+
+        initialiseCanvas()
+        addDarkOverlay(.8);
+        showAmongy();
+        analyseButton.innerHTML = "Analyse";
+        analyseButton.disabled = false;
+        worker.terminate();
     }
 }
 
