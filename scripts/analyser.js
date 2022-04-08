@@ -2,15 +2,6 @@ const analyseButton = document.getElementById("btn-analyse");
 let amongyCollection;
 let pixelMatrix;
 
-const place = new Image();
-place.src = base64Image;
-// place.src = testImage;
-// place.src = testImage2;
-
-window.onload = async () => {
-    ctx.drawImage(place, 0, 0);
-}
-
 const loadIcon = () => {
     let element = document.createElement("DIV");
     element.classList.add("load-icon");
@@ -29,21 +20,9 @@ const checkImageForAmongy = () => {
     worker.onmessage = (message) => {
         amongyCollection = message.data[0];
 
-        initialiseCanvas()
-        addDarkOverlay(.8);
-        showAmongy();
+        draw(amongyCollection);
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;
         worker.terminate();
     }
-}
-
-const showAmongy = () => {
-    amongyCollection.forEach(a => {
-        a.pixels.forEach(p => {
-            let [r, g, b] = p.color.split(",");
-            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-            ctx.fillRect(p.x, p.y, 1, 1);
-        })
-    })
 }

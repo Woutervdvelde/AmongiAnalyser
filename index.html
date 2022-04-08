@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Amount of amongy in r/place">
+
     <link rel="apple-touch-icon" sizes="180x180" href="./resources/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./resources/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./resources/favicon/favicon-16x16.png">
@@ -17,8 +19,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styling/style.css">
     <title>Amongy Analyser</title>
@@ -39,9 +40,11 @@
                 </span>
             </div>
             <hr />
-            <button onclick="reset()">Reset view</button>
-            <label for="overlay-slider">Overlay transparancy</label>
-            <input id="overlay-slider" type="range" min="0" max="100" />
+            <div class="camera-controls-body">
+                <button onclick="reset()">Reset view</button>
+                <label for="overlay-slider">Overlay transparancy</label>
+                <input id="overlay-slider" type="range" min="0" max="100" />
+            </div>
         </div>
         <div id="position-container">
             <div id="zoom-container">
@@ -59,8 +62,8 @@
 
     </div>
 
-    <script src="scripts/canvas.js"></script>
     <script src="scripts/placeBase64.js"></script>
+    <script src="scripts/canvas.js"></script>
     <script src="scripts/analyseWorker.js"></script>
     <script src="scripts/statistics.js"></script>
     <script src="scripts/analyser.js"></script>

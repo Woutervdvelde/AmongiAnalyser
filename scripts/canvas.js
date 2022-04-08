@@ -1,13 +1,22 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 const camera = document.getElementById("camera");
 const positionContainer = document.getElementById("position-container");
 const zoomContainer = document.getElementById("zoom-container");
+
+const overlayAlphaInput = document.getElementById("overlay-slider");
+overlayAlphaInput.onchange = (e) => setOverlayAlpha(e.target.value / 100);
+
+const place = new Image();
+place.src = base64Image;
 
 let dragging = false;
 let currentX = 0;
 let currentY = 0;
 let zoom = 1;
+let overlayAlpha = .8;
+
 const zoomMin = .1;
 const zoomMax = 40;
 const zoomStep = .1;
@@ -59,4 +68,31 @@ const addDarkOverlay = (percentage = .5) => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-window.addEventListener("load", e => setTransform(0,0));
+const showAmongy = (amongyCollection) => {
+    amongyCollection.forEach(a => {
+        a.pixels.forEach(p => {
+            let [r, g, b] = p.color.split(",");
+            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+            ctx.fillRect(p.x, p.y, 1, 1);
+        })
+    })
+}
+
+const draw = (amongyCollection = null) => {
+    initialiseCanvas();
+    if (!amongyCollection) return;
+
+    addDarkOverlay(overlayAlpha);
+    showAmongy(amongyCollection);
+}
+
+const setOverlayAlpha = (alpha) => {
+    overlayAlpha = alpha;
+    draw(amongyCollection);
+}
+
+window.addEventListener("load", e => {
+    setTransform(0,0);
+    draw();
+    overlayAlphaInput.value = overlayAlpha * 100;
+});
