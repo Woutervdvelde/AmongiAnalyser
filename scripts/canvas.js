@@ -15,11 +15,38 @@ let dragging = false;
 let currentX = 0;
 let currentY = 0;
 let zoom = 1;
+let lastTouchX = 0;
+let lastTouchY = 0;
+let lastTouchSecondX = 0;
+let lastTouchSecondY = 0;
+
 let overlayAlpha = .8;
 
 const zoomMin = .1;
 const zoomMax = 40;
 const zoomStep = .1;
+
+const setTouches = (e) => {
+    if (e.touches.length > 0) {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+    }
+
+    if (e.touches.length > 1) {
+        lastTouchSecondX = e.touches[0].clientX;
+        lastTouchSecondY = e.touches[0].clientY;
+    }
+}
+
+const touchMove = (e) => {
+    if (e.target.closest(".camera-controls")) return;
+    distanceX = (lastTouchX - e.touches[0].clientX) * -1;
+    distanceY = (lastTouchY - e.touches[0].clientY) * -1;
+    currentX = currentX + (distanceX / zoom);
+    currentY = currentY + (distanceY / zoom);
+    setTransform(currentX, currentY);
+    setTouches(e);
+}
 
 camera.onwheel = (e) => {
     e.preventDefault(); //prevent page scrolling
@@ -33,6 +60,16 @@ const stopDragging = () => dragging = false;
 camera.onmousedown = () => dragging = true;
 camera.onmouseup = stopDragging;
 camera.onmouseleave = stopDragging;
+camera.ontouchend = stopDragging;
+
+camera.ontouchstart = setTouches;
+camera.ontouchmove = (e) => {
+    if (e.touches.length > 1)
+        touchZoom(e);
+    else
+        touchMove(e);
+}
+
 
 camera.onmousemove = (e) => {
     if (!dragging || e.target.closest(".camera-controls")) return;
@@ -88,6 +125,7 @@ const draw = (amongyCollection = null) => {
 
 const setOverlayAlpha = (alpha) => {
     overlayAlpha = alpha;
+    //have to pull the amongy collection from global params
     draw(amongyCollection);
 }
 
