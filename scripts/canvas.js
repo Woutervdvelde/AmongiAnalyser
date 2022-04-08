@@ -14,14 +14,14 @@ const zoomStep = .1;
 
 camera.onwheel = (e) => {
     e.preventDefault(); //prevent page scrolling
-    zoom = zoom + ((e.deltaY * -1) / 100 * zoomStep);
+    zoom = zoom + ((e.deltaY * -1) / 100 * (zoomStep * zoom));
     if (zoom > zoomMax) zoom = zoomMax;
     if (zoom < zoomMin) zoom = zoomMin;
     setZoom(zoom);
 }
 
 const stopDragging = () => dragging = false;
-camera.onmousedown = (e) => dragging = true;
+camera.onmousedown = () => dragging = true;
 camera.onmouseup = stopDragging;
 camera.onmouseleave = stopDragging;
 
@@ -34,7 +34,7 @@ camera.onmousemove = (e) => {
 
 const setTransform = (x, y) => {
     positionContainer.style.transform = `translateX(${x}px) translateY(${y}px)`;
-    zoomContainer.style.transformOrigin = `${camera.clientWidth / 2 - x}px ${camera.clientWidth / 2 - y}px`;
+    zoomContainer.style.transformOrigin = `${camera.clientWidth / 2 - x}px ${camera.clientHeight / 2 - y}px`;
 }
 
 const setZoom = (zoom) => {
