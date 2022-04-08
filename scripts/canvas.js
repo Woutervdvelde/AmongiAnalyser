@@ -27,6 +27,7 @@ const zoomMax = 40;
 const zoomStep = .1;
 
 const setTouches = (e) => {
+    console.log("setting touches")
     if (e.touches.length > 0) {
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
@@ -48,7 +49,7 @@ const touchMove = (e) => {
     setTouches(e);
 }
 
-camera.onwheel = (e) => {
+positionContainer.onwheel = (e) => {
     e.preventDefault(); //prevent page scrolling
     zoom = zoom + ((e.deltaY * -1) / 100 * (zoomStep * zoom));
     if (zoom > zoomMax) zoom = zoomMax;
@@ -57,13 +58,13 @@ camera.onwheel = (e) => {
 }
 
 const stopDragging = () => dragging = false;
-camera.onmousedown = () => dragging = true;
-camera.onmouseup = stopDragging;
-camera.onmouseleave = stopDragging;
-camera.ontouchend = stopDragging;
+positionContainer.onmousedown = () => dragging = true;
+positionContainer.onmouseup = stopDragging;
+positionContainer.onmouseleave = stopDragging;
+positionContainer.ontouchend = stopDragging;
 
-camera.ontouchstart = setTouches;
-camera.ontouchmove = (e) => {
+positionContainer.ontouchstart = setTouches;
+positionContainer.ontouchmove = (e) => {
     if (e.touches.length > 1)
         touchZoom(e);
     else
@@ -71,7 +72,7 @@ camera.ontouchmove = (e) => {
 }
 
 
-camera.onmousemove = (e) => {
+positionContainer.onmousemove = (e) => {
     if (!dragging || e.target.closest(".camera-controls")) return;
     currentX = currentX + (e.movementX / zoom);
     currentY = currentY + (e.movementY / zoom);

@@ -130,12 +130,6 @@ hr {
     text-align: right;
 }
 
-@media (hover: none) {
-    .camera-controls {
-        position: fixed;
-    }
-}
-
 #position-container {
     position: absolute;
 }
