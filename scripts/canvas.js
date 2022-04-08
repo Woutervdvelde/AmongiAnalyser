@@ -27,7 +27,6 @@ const zoomMax = 40;
 const zoomStep = .1;
 
 const setTouches = (e) => {
-    console.log("setting touches")
     if (e.touches.length > 0) {
         lastTouchX = e.touches[0].clientX;
         lastTouchY = e.touches[0].clientY;
@@ -39,8 +38,14 @@ const setTouches = (e) => {
     }
 }
 
+const calculateTouchDistance = (touch1, touch2) => {
+    //touch 1 = [X, Y], touch2 = [X, Y]
+    differenceX = touch1[0] - touch2[0];
+    differenceY = touch1[1] - touch2[1];
+    return differenceX + differenceY;
+}
+
 const touchMove = (e) => {
-    if (e.target.closest(".camera-controls")) return;
     distanceX = (lastTouchX - e.touches[0].clientX) * -1;
     distanceY = (lastTouchY - e.touches[0].clientY) * -1;
     currentX = currentX + (distanceX / zoom);
@@ -49,9 +54,20 @@ const touchMove = (e) => {
     setTouches(e);
 }
 
+const touchZoom = (e) => {
+    differenceFirst = calculateTouchDistance([lastTouchX, lastTouchY], [lastTouchSecondX, lastTouchSecondY]);
+    differenceSecond = calculateTouchDistance([e.touches[0].clientX, e.touches[0].clientY], [e.touches[1].clientX, e.touches[1].clientY]);
+    zoom = zoom + (differenceFirst - differenceSecond) / 100 * (zoomStep * zoom);
+    validateApplyZoom(zoom);
+}
+
 positionContainer.onwheel = (e) => {
     e.preventDefault(); //prevent page scrolling
-    zoom = zoom + ((e.deltaY * -1) / 100 * (zoomStep * zoom));
+    zoom = zoom + (e.deltaY * -1) / 100 * (zoomStep * zoom);
+    validateApplyZoom(zoom);
+}
+
+const validateApplyZoom = (zoom) => {
     if (zoom > zoomMax) zoom = zoomMax;
     if (zoom < zoomMin) zoom = zoomMin;
     setZoom(zoom);
@@ -61,13 +77,14 @@ const stopDragging = () => dragging = false;
 positionContainer.onmousedown = () => dragging = true;
 positionContainer.onmouseup = stopDragging;
 positionContainer.onmouseleave = stopDragging;
-positionContainer.ontouchend = stopDragging;
+positionContainer.ontouchend = setTouches;
 
 positionContainer.ontouchstart = setTouches;
 positionContainer.ontouchmove = (e) => {
-    if (e.touches.length > 1)
+    if (e.target.closest(".camera-controls")) return;
+    if (e.touches.length > 1) 
         touchZoom(e);
-    else
+    else 
         touchMove(e);
 }
 
@@ -131,7 +148,7 @@ const setOverlayAlpha = (alpha) => {
 }
 
 window.addEventListener("load", e => {
-    setTransform(0,0);
+    setTransform(0, 0);
     draw();
     overlayAlphaInput.value = overlayAlpha * 100;
 });
