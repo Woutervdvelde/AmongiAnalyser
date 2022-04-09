@@ -13,11 +13,11 @@ const worker_function = () => {
             NONE: "none"
         }
 
-        type = Amongy.Type.NONE;
+        variant;
         pixels = [];
 
-        constructor(type, pixels) {
-            this.type = type;
+        constructor(variant, pixels) {
+            this.variant = variant;
             this.pixels = pixels;
         }
     }
@@ -118,7 +118,7 @@ const worker_function = () => {
                     let pixels = checkVariant(data, variants[i], x, y);
                     if (!pixels) continue;
                     addVariantToMatrix(pixels);
-                    amongyCollection.push(new Amongy(variants[i].type, pixels));
+                    amongyCollection.push(new Amongy(variants[i], pixels));
                     break;
                 }
             }

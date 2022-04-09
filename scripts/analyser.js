@@ -1,18 +1,6 @@
 const analyseButton = document.getElementById("btn-analyse");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext('2d');
-
 let amongyCollection;
 let pixelMatrix;
-
-const place = new Image();
-place.src = base64Image;
-// place.src = testImage;
-// place.src = testImage2;
-
-window.onload = async () => {
-    ctx.drawImage(place, 0, 0);
-}
 
 const loadIcon = () => {
     let element = document.createElement("DIV");
@@ -32,31 +20,9 @@ const checkImageForAmongy = () => {
     worker.onmessage = (message) => {
         amongyCollection = message.data[0];
 
-        initialiseCanvas()
-        addDarkOverlay(.8);
-        showAmongy();
+        draw(amongyCollection);
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;
         worker.terminate();
     }
-}
-
-const initialiseCanvas = () => {
-    ctx.drawImage(place, 0, 0);
-}
-
-const addDarkOverlay = (percentage = .5) => {
-    let ctx = canvas.getContext('2d');
-    ctx.fillStyle = `rgba(0,0,0,${percentage})`;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-}
-
-const showAmongy = () => {
-    amongyCollection.forEach(a => {
-        a.pixels.forEach(p => {
-            let [r, g, b] = p.color.split(",");
-            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-            ctx.fillRect(p.x, p.y, 1, 1);
-        })
-    })
 }
