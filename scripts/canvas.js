@@ -33,16 +33,17 @@ const setTouches = (e) => {
     }
 
     if (e.touches.length > 1) {
-        lastTouchSecondX = e.touches[0].clientX;
-        lastTouchSecondY = e.touches[0].clientY;
+        lastTouchSecondX = e.touches[1].clientX;
+        lastTouchSecondY = e.touches[1].clientY;
     }
 }
 
-const calculateTouchDistance = (touch1, touch2) => {
-    //touch 1 = [X, Y], touch2 = [X, Y]
-    differenceX = touch1[0] - touch2[0];
-    differenceY = touch1[1] - touch2[1];
-    return differenceX + differenceY;
+const calculateDistance = (touch1, touch2) => {
+    //touch1 = [X,Y] | touch2 = [X,Y]
+    let a = touch1[0] - touch2[0];
+    let b = touch1[1] - touch2[1];
+    let c = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+    return c;
 }
 
 const touchMove = (e) => {
@@ -55,10 +56,14 @@ const touchMove = (e) => {
 }
 
 const touchZoom = (e) => {
-    differenceFirst = calculateTouchDistance([lastTouchX, lastTouchY], [lastTouchSecondX, lastTouchSecondY]);
-    differenceSecond = calculateTouchDistance([e.touches[0].clientX, e.touches[0].clientY], [e.touches[1].clientX, e.touches[1].clientY]);
-    zoom = zoom + (differenceFirst - differenceSecond) / 100 * (zoomStep * zoom);
+    let touch1 = e.touches[0];
+    let touch2 = e.touches[1];
+    let distancePrevious = calculateDistance([lastTouchX, lastTouchY], [lastTouchSecondX, lastTouchSecondY]);
+    let distanceNew = calculateDistance([touch1.clientX, touch1.clientY], [touch2.clientX, touch2.clientY]);
+
+    zoom = zoom + ((distancePrevious - distanceNew) * -1) / 10 * (zoomStep * zoom);
     validateApplyZoom(zoom);
+    setTouches(e);
 }
 
 positionContainer.onwheel = (e) => {
@@ -79,15 +84,15 @@ positionContainer.onmouseup = stopDragging;
 positionContainer.onmouseleave = stopDragging;
 positionContainer.ontouchend = setTouches;
 
-positionContainer.ontouchstart = setTouches;
-positionContainer.ontouchmove = (e) => {
+camera.ontouchstart = setTouches;
+camera.ontouchmove = (e) => {
     if (e.target.closest(".camera-controls")) return;
+    e.preventDefault(); //prevent page scrolling and zooming
     if (e.touches.length > 1) 
         touchZoom(e);
     else 
         touchMove(e);
 }
-
 
 positionContainer.onmousemove = (e) => {
     if (!dragging || e.target.closest(".camera-controls")) return;
