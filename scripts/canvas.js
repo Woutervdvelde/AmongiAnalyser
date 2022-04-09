@@ -66,23 +66,23 @@ const touchZoom = (e) => {
     setTouches(e);
 }
 
-positionContainer.onwheel = (e) => {
+camera.onwheel = (e) => {
     e.preventDefault(); //prevent page scrolling
     zoom = zoom + (e.deltaY * -1) / 100 * (zoomStep * zoom);
     validateApplyZoom(zoom);
 }
 
-const validateApplyZoom = (zoom) => {
-    if (zoom > zoomMax) zoom = zoomMax;
-    if (zoom < zoomMin) zoom = zoomMin;
+const validateApplyZoom = (z) => {
+    if (z > zoomMax) zoom = zoomMax;
+    if (z < zoomMin) zoom = zoomMin;
     setZoom(zoom);
 }
 
 const stopDragging = () => dragging = false;
-positionContainer.onmousedown = () => dragging = true;
-positionContainer.onmouseup = stopDragging;
-positionContainer.onmouseleave = stopDragging;
-positionContainer.ontouchend = setTouches;
+camera.onmousedown = () => dragging = true;
+camera.onmouseup = stopDragging;
+camera.onmouseleave = stopDragging;
+camera.ontouchend = setTouches;
 
 camera.ontouchstart = setTouches;
 camera.ontouchmove = (e) => {
