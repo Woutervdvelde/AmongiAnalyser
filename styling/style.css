@@ -53,7 +53,7 @@ hr {
     border-radius: 10px 0 0 0;
     border-width: 3px 0 0 3px;
     background-color: white;
-    transform: translateX(160px) translateY(130px);
+    transform: translateX(160px) translateY(185px);
     transition: 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -102,7 +102,17 @@ hr {
     font-size: .9rem;
 }
 
-.camera-controls-body #overlay-slider {
+.camera-controls-body .slider-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.camera-controls-body .slider-container span {
+    width: 1rem;
+}
+
+.camera-controls-body input[type=range] {
+    align-self: center;
     height: 15px;
     -webkit-appearance: none;
     background: rgba(0,0,0,.1);
@@ -111,7 +121,7 @@ hr {
     overflow: hidden;
 }
   
-.camera-controls-body #overlay-slider::-webkit-slider-thumb {
+.camera-controls-body input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 15px;
     height: 15px;

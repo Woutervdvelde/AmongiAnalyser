@@ -19,7 +19,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="styling/style.css">
     <title>Amongy Analyser</title>
@@ -43,7 +44,15 @@
             <div class="camera-controls-body">
                 <button onclick="reset()">Reset view</button>
                 <label for="overlay-slider">Overlay transparancy</label>
-                <input id="overlay-slider" type="range" min="0" max="100" />
+                <div class="slider-container">
+                    <input id="overlay-slider" class="canvasControlInput" data-display="overlay-slider-display" type="range" min="0" max="100" />
+                    <span id="overlay-slider-display">0%</span>
+                </div>
+                <label for="certainty-slider">Certainty threshold</label>
+                <div class="slider-container">
+                    <input id="certainty-slider" class="canvasControlInput" data-display="certainty-slider-display" type="range" min="0" max="100" />
+                    <span id="certainty-slider-display">0%</span>
+                </div>
             </div>
         </div>
         <div id="position-container">
