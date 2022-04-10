@@ -15,10 +15,32 @@ const worker_function = () => {
 
         variant;
         pixels = [];
+        context = [];
+        primaryColor = "";
 
-        constructor(variant, pixels) {
+        constructor(variant, pixels, context) {
             this.variant = variant;
             this.pixels = pixels;
+            this.context = context;
+            this.primaryColor = this.#primaryColor;
+            this.certainty = this.#calculateCertainty
+        }
+
+        get #primaryColor() {
+            //TODO: this... does feel like a pretty ugly way to decide what the most occuring color is.
+            let colors = this.pixels.map(p => p.color);
+            let colorCount = {};
+            for (let i = 0; i < colors.length; i++)
+                colorCount[colors[i]] ? colorCount[colors[i]]++ : colorCount[colors[i]] = 1;
+            let primaryColor = Object.keys(colorCount).find(key => colorCount[key] === Math.max(...Object.values(colorCount)));
+            return primaryColor;
+        }
+
+        get #calculateCertainty() {
+            let primaryOccurence = this.context[this.primaryColor] ?? 0;
+            let totalPixelCount = Object.values(this.context).reduce((count, current) => count + current);
+            let certainty = (totalPixelCount - primaryOccurence) / totalPixelCount;
+            return certainty;
         }
     }
 
@@ -47,12 +69,38 @@ const worker_function = () => {
     class Variant {
         type = Amongy.Type.NONE;
         flipped = false;
-        cords = [];
+        #cords = [];
+        context = [];
 
         constructor(type, flipped, cords) {
             this.type = type;
             this.flipped = flipped;
             this.cords = cords;
+        }
+
+        get cords() { return this.#cords }
+
+        set cords(cords) {
+            this.#cords = cords;
+            this.#calculateContext(cords);
+        }
+
+        #calculateContext = (cords) => {
+            let multiArray = [];
+            // old surroundings did count the corners, removed for better results.
+            // let surrounding = [{ x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
+            let surrounding = [{ x: 0, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 1 }];
+            for (let i = 0; i < cords.length; i++) {
+                let cord = cords[i];
+                surrounding.forEach(s => {
+                    let x = s.x + cord.x;
+                    let y = s.y + cord.y;
+                    if (multiArray.filter(c => c.x == x && c.y == y).length) return;
+                    if (cords.filter(c => c.x == x && c.y == y).length) return;
+                    multiArray.push({ x: x, y: y });
+                });
+            }
+            this.context = multiArray;
         }
     }
 
@@ -102,12 +150,10 @@ const worker_function = () => {
     //Order is very important here, check for bigger variants first because it will (almost) always find the smaller variant in the bigger variant.
     const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)];
 
-
     let canvasWidth;
     let canvasHeight;
     const amongyCollection = [];
     const pixelMatrix = [[]];
-
 
     const checkImageForAmongy = (data) => {
         for (let y = 0; y < canvasWidth; y++)
@@ -117,8 +163,10 @@ const worker_function = () => {
                 for (let i = 0; i < variants.length; i++) {
                     let pixels = checkVariant(data, variants[i], x, y);
                     if (!pixels) continue;
+
+                    let context = getContextPixels(data, variants[i], x, y);
                     addVariantToMatrix(pixels);
-                    amongyCollection.push(new Amongy(variants[i], pixels));
+                    amongyCollection.push(new Amongy(variants[i], pixels, context));
                     break;
                 }
             }
@@ -154,6 +202,21 @@ const worker_function = () => {
             else return false;
         }
         return response;
+    }
+
+    const getContextPixels = (data, variant, startX, startY) => {
+        let colors = {};
+        for (let i = 0; i < variant.context.length; i++) {
+            let x = startX + variant.context[i].x;
+            let y = startY + variant.context[i].y;
+
+            let color = getRGBFromCords(data, x, y);
+            if (!colors[color])
+                colors[color] = 1;
+            else
+                colors[color]++;
+        }
+        return colors;
     }
 
     const addVariantToMatrix = (pixels) => {

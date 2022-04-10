@@ -6,7 +6,16 @@ const positionContainer = document.getElementById("position-container");
 const zoomContainer = document.getElementById("zoom-container");
 
 const overlayAlphaInput = document.getElementById("overlay-slider");
+const certaintyThresholdInput = document.getElementById("certainty-slider");
 overlayAlphaInput.onchange = (e) => setOverlayAlpha(e.target.value / 100);
+certaintyThresholdInput.onchange = (e) => setCertaintyThreshold(e.target.value / 100);
+
+document.querySelectorAll(".canvasControlInput").forEach(elem => {
+    elem.oninput = (e) => {
+        let target = document.getElementById(e.target.dataset.display);
+        target.innerText = `${e.target.value}%`;
+    }
+});
 
 const place = new Image();
 place.src = base64Image;
@@ -21,6 +30,7 @@ let lastTouchSecondX = 0;
 let lastTouchSecondY = 0;
 
 let overlayAlpha = .8;
+let certaintyThreshold = .9;
 
 const zoomMin = .1;
 const zoomMax = 40;
@@ -129,12 +139,13 @@ const addDarkOverlay = (percentage = .5) => {
 }
 
 const showAmongy = (amongyCollection) => {
-    amongyCollection.forEach(a => {
+    let collection = amongyCollection.filter(a => a.certainty >= certaintyThreshold);
+    collection.forEach(a => {
         a.pixels.forEach(p => {
             let [r, g, b] = p.color.split(",");
             ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
             ctx.fillRect(p.x, p.y, 1, 1);
-        })
+        });
     })
 }
 
@@ -152,8 +163,16 @@ const setOverlayAlpha = (alpha) => {
     draw(amongyCollection);
 }
 
+const setCertaintyThreshold = (threshold) => {
+    certaintyThreshold = threshold;
+    draw(amongyCollection);
+}
+
 window.addEventListener("load", e => {
     setTransform(0, 0);
     draw();
     overlayAlphaInput.value = overlayAlpha * 100;
+    certaintyThresholdInput.value = certaintyThreshold * 100;
+    overlayAlphaInput.nextElementSibling.innerText = `${overlayAlpha * 100}%`;
+    certaintyThresholdInput.nextElementSibling.innerText = `${certaintyThreshold * 100}%`;
 });
