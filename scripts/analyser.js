@@ -19,7 +19,7 @@ const checkImageForAmongy = () => {
 
     worker.onmessage = (message) => {
         amongyCollection = message.data[0];
-
+        
         draw(amongyCollection);
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;

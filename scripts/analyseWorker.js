@@ -47,12 +47,36 @@ const worker_function = () => {
     class Variant {
         type = Amongy.Type.NONE;
         flipped = false;
-        cords = [];
+        #cords = [];
+        context = [];
 
         constructor(type, flipped, cords) {
             this.type = type;
             this.flipped = flipped;
             this.cords = cords;
+        }
+
+        get cords() { return this.#cords }
+
+        set cords(cords) {
+            this.#cords = cords;
+            this.#calculateContext(cords);
+        }
+
+        #calculateContext = (cords) => {
+            let multiArray = [];
+            let surrounding = [{ x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
+            for (let i = 0; i < cords.length; i++) {
+                let cord = cords[i];
+                surrounding.forEach(s => {
+                    let x = s.x + cord.x;
+                    let y = s.y + cord.y;
+                    if (multiArray.filter(c => c.x == x && c.y == y).length) return;
+                    if (cords.filter(c => c.x == x && c.y == y).length) return;
+                    multiArray.push({ x: x, y: y });
+                });
+            }
+            this.context = multiArray;
         }
     }
 
@@ -101,7 +125,6 @@ const worker_function = () => {
 
     //Order is very important here, check for bigger variants first because it will (almost) always find the smaller variant in the bigger variant.
     const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)];
-
 
     let canvasWidth;
     let canvasHeight;
