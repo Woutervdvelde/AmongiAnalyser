@@ -87,7 +87,9 @@ const worker_function = () => {
 
         #calculateContext = (cords) => {
             let multiArray = [];
-            let surrounding = [{ x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
+            // old surroundings did count the corners, removed for better results.
+            // let surrounding = [{ x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
+            let surrounding = [{ x: 0, y: -1 }, { x: -1, y: 0 }, { x: 1, y: 0 }, { x: 0, y: 1 }];
             for (let i = 0; i < cords.length; i++) {
                 let cord = cords[i];
                 surrounding.forEach(s => {
