@@ -172,3 +172,27 @@ hr {
     background-color: var(--accent-color-300);
     color: #f1f1f1;
 }
+
+.stats {
+    width: 75vw;
+    margin: 0 auto;
+}
+
+.stats-header {
+    text-align: center;
+    margin: 1rem;
+}
+
+.stats-body {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.stat-container {
+    display: flex;
+    justify-content: center;
+}
+
+.stat-display {
+    max-width: 25%;
+}
