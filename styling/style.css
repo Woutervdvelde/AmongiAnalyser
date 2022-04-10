@@ -194,5 +194,11 @@ hr {
 }
 
 .stat-display {
-    max-width: 25%;
+    max-width: 100px;
+    image-rendering: pixelated;
+}
+
+.stat-body {
+    display: inline-block;
+    padding-left: .5rem;
 }
