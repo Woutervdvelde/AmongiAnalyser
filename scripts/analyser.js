@@ -1,6 +1,5 @@
 const analyseButton = document.getElementById("btn-analyse");
 let amongyCollection;
-let pixelMatrix;
 
 const loadIcon = () => {
     let element = document.createElement("DIV");
