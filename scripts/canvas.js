@@ -139,7 +139,7 @@ const addDarkOverlay = (percentage = .5) => {
 }
 
 const showAmongy = (amongyCollection) => {
-    let collection = amongyCollection.filter(a => a.certainty >= certaintyThreshold);
+    let collection = filterCertaintyAmongy(amongyCollection);
     collection.forEach(a => {
         a.pixels.forEach(p => {
             let [r, g, b] = p.color.split(",");
@@ -166,6 +166,7 @@ const setOverlayAlpha = (alpha) => {
 const setCertaintyThreshold = (threshold) => {
     certaintyThreshold = threshold;
     draw(amongyCollection);
+    showStatistics(amongyCollection);
 }
 
 window.addEventListener("load", e => {

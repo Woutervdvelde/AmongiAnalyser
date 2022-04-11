@@ -5,6 +5,10 @@
 :root {
     --accent-color-100: rgba(255, 158, 126, 0.9);
     --accent-color-300: rgba(255, 100, 50, 1);
+    --background-gray-100: rgba(0, 0, 0, .1);
+    --background-gray-200: rgba(0, 0, 0, .2);
+
+    --border-radius: 10px;
 }
 
 hr {
@@ -38,8 +42,8 @@ hr {
     image-rendering: pixelated;
     margin: 0 auto;
     border: 5px solid black;
-    border-radius: 10px;
-    background-color: rgba(0,0,0,.4);
+    border-radius: var(--border-radius);
+    background-color: var(--background-gray-200);
 }
 
 .camera-controls {
@@ -50,7 +54,7 @@ hr {
     z-index: 10;
     border-style: solid;
     border-color: black;
-    border-radius: 10px 0 0 0;
+    border-radius: var(--border-radius) 0 0 0;
     border-width: 3px 0 0 3px;
     background-color: white;
     transform: translateX(160px) translateY(185px);
@@ -88,7 +92,7 @@ hr {
     padding: .75rem 1rem;
     background-color: transparent;
     border: 3px solid black;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     background: none;
     font-size: 1rem;
     transition: 150ms ease-in-out;
@@ -115,9 +119,9 @@ hr {
     align-self: center;
     height: 15px;
     -webkit-appearance: none;
-    background: rgba(0,0,0,.1);
+    background: var(--background-gray-100);
     outline: none;
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     overflow: hidden;
 }
   
@@ -163,7 +167,7 @@ hr {
     padding: 1rem 3rem;
     background-color: var(--accent-color-100);
     border: 5px solid var(--accent-color-300);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-weight: 700;
     transition: all 150ms ease-in-out;
 }
@@ -171,4 +175,40 @@ hr {
 .analyse-controls button:hover {
     background-color: var(--accent-color-300);
     color: #f1f1f1;
+}
+
+.stats {
+    width: 75vw;
+    margin: 0 auto;
+}
+
+.stats-header {
+    text-align: center;
+    margin: 1rem;
+}
+
+.stats-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.stat-container {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1 0 21%;
+    margin: .25rem;
+}
+
+.stat-display {
+    max-width: 100px;
+    padding: .5rem;
+    image-rendering: pixelated;
+    background-color: var(--background-gray-100);
+    border-radius: var(--border-radius);
+}
+
+.stat-body {
+    display: inline-block;
+    padding-left: .5rem;
 }

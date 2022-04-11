@@ -69,20 +69,14 @@ const worker_function = () => {
     class Variant {
         type = Amongy.Type.NONE;
         flipped = false;
-        #cords = [];
+        cords = [];
         context = [];
 
         constructor(type, flipped, cords) {
             this.type = type;
             this.flipped = flipped;
             this.cords = cords;
-        }
-
-        get cords() { return this.#cords }
-
-        set cords(cords) {
-            this.#cords = cords;
-            this.#calculateContext(cords);
+            this.context = this.#calculateContext(cords);
         }
 
         #calculateContext = (cords) => {
@@ -100,7 +94,7 @@ const worker_function = () => {
                     multiArray.push({ x: x, y: y });
                 });
             }
-            this.context = multiArray;
+            return multiArray;
         }
     }
 
@@ -188,6 +182,7 @@ const worker_function = () => {
 
             let color = getRGBFromCords(data, x, y);
 
+            //preparing for color variants, system not in use yet, needs modification.
             correct = false;
             for (let cv = 0; cv < cord.c.length; cv++) {
                 if (!colors[cord.c[cv]] && !colors.includes(color))
