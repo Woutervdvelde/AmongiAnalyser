@@ -20,8 +20,13 @@ const checkImageForAmongy = () => {
         amongyCollection = message.data[0];
         
         draw(amongyCollection);
+        showStatistics(amongyCollection);
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;
         worker.terminate();
     }
+}
+
+const filterCertaintyAmongy = (amongyCollection) => {
+    return amongyCollection.filter(a => a.certainty >= certaintyThreshold);
 }

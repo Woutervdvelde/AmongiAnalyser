@@ -1,3 +1,6 @@
+const statsContainer = document.getElementById("stats-container");
+const totalAmongyCount = document.getElementById("stats-count-total");
+
 const createStatContainer = (name, count, amongy) => {
     const container = document.createElement("DIV");
     const display = document.createElement("CANVAS");
@@ -34,6 +37,7 @@ const generateAmongyDisplay = (display, amongy) => {
     offsetX = Math.abs(offsetX);
     offsetY = Math.abs(offsetY);
 
+    //5x5 grid
     w = display.width / 5;
     h = display.height / 5;
     amongy.variant.cords.forEach((c, i) => {
@@ -42,4 +46,26 @@ const generateAmongyDisplay = (display, amongy) => {
         let y = (c.y + offsetY) * h;
         ctx.fillRect(x, y, w, h);
     });
+}
+
+const showStatistics = (amongyCollection) => {
+    statsContainer.innerHTML = null;
+    let collection = filterCertaintyAmongy(amongyCollection);
+    let variants = [...new Set(collection.map(a => a.variant))];
+    let containers = {};
+    for (let variant in variants) {
+        variant = variants[variant];
+
+        let variantCollection = collection.filter(a => a.variant == variant);
+        let name = `${variant.type} ${variant.flipped ? "flipped" : ""}`;
+        let count = variantCollection.length;
+        let amongy = variantCollection[Math.floor(Math.random() * count)];
+        let element = createStatContainer(name, count, amongy);
+
+        while (containers[count]) count++;
+        containers[count] = element;
+    }
+
+    totalAmongyCount.innerText = collection.length;
+    Object.values(containers).reverse().forEach(e => statsContainer.appendChild(e));
 }
