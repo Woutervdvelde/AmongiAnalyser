@@ -1,13 +1,17 @@
 const analyseButton = document.getElementById("btn-analyse");
 let amongyCollection;
 
+/**
+ * 
+ * @returns 
+ */
 const loadIcon = () => {
     let element = document.createElement("DIV");
     element.classList.add("load-icon");
     return element;
 }
 
-const checkImageForAmongy = () => {
+const checkImageForAmongi = () => {
     analyseButton.innerHTML = loadIcon().outerHTML;
     analyseButton.disabled = true;
     let data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
