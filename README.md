@@ -14,6 +14,9 @@ Originally created for r/place. This app searches for amongy in pixel art. Creat
 - [x] Show statistics (how many of which amongy)
 - [x] Launch github pages
 - [x] Use worker for analyser *(https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)*
+- [ ] Fix "Highlight intensity" slider for Firefox ([#6][i6]) 
+
+[i6]: https://github.com/Woutervdvelde/AmongyAnalyser/issues/6
 
 *\* Color variantions have been implemented for different visor colors and different color backpack*
 
