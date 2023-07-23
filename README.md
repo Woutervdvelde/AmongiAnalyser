@@ -8,7 +8,7 @@ Originally created for r/place. This app searches for amongy in pixel art. Creat
 
 ## Current status
 - [x] Base system identifying the shape
-- [-] Color variations inside amongy*
+- [ ] Color variations inside amongy*
 - [x] Look at context around the amongy, determine certainty using surounding pixels.
 - [x] Explorable canvas (zoom and move)
 - [x] Show statistics (how many of which amongy)
