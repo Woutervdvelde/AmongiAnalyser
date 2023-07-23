@@ -9,8 +9,10 @@ const worker_function = () => {
         static Type = {
             SHORT: "short",
             SHORT_GLASSES: "short with cool glasses",
+            SHORT_BACKPACK: "short with backpack",
             TRADITIONAL: "traditional",
             TRADITIONAL_GLASSES: "traditional with cool glasses",
+            TRADITIONAL_BACKPACK: "traditional with backpack",
             NONE: "none"
         }
 
@@ -123,7 +125,7 @@ const worker_function = () => {
     );
 
     const traditionalboyglasses = new Variant(
-        Amongy.Type.TRADITIONAL_GLASSES,
+        Amongy.Type.TRADITIONAL_BACKPACK,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -134,6 +136,29 @@ const worker_function = () => {
             { x: 1, y: 1, c: [3] },
             { x: 2, y: 1, c: [4] },
             { x: -1, y: 2, c: [0] },
+            { x: 0, y: 2, c: [0] },
+            { x: 1, y: 2, c: [0] },
+            { x: 2, y: 2, c: [0] },
+            { x: 0, y: 3, c: [0] },
+            { x: 1, y: 3, c: [0] },
+            { x: 2, y: 3, c: [0] },
+            { x: 0, y: 4, c: [0] },
+            { x: 2, y: 4, c: [0] },
+        ]
+    );
+
+    const traditionalboybackpack = new Variant(
+        Amongy.Type.TRADITIONAL_BACKPACK,
+        false,
+        [
+            { x: 0, y: 0, c: [0] },
+            { x: 1, y: 0, c: [0] },
+            { x: 2, y: 0, c: [0] },
+            { x: -1, y: 1, c: [4] },
+            { x: 0, y: 1, c: [0] },
+            { x: 1, y: 1, c: [3] },
+            { x: 2, y: 1, c: [3] },
+            { x: -1, y: 2, c: [4] },
             { x: 0, y: 2, c: [0] },
             { x: 1, y: 2, c: [0] },
             { x: 2, y: 2, c: [0] },
@@ -185,8 +210,40 @@ const worker_function = () => {
         ]
     );
 
+    const shortboybackpack = new Variant(
+        Amongy.Type.SHORT_BACKPACK,
+        false,
+        [
+            { x: 0, y: 0, c: [0] },
+            { x: 1, y: 0, c: [0] },
+            { x: 2, y: 0, c: [0] },
+            { x: -1, y: 1, c: [4] },
+            { x: 0, y: 1, c: [0] },
+            { x: 1, y: 1, c: [3] },
+            { x: 2, y: 1, c: [3] },
+            { x: -1, y: 2, c: [4] },
+            { x: 0, y: 2, c: [0] },
+            { x: 1, y: 2, c: [0] },
+            { x: 2, y: 2, c: [0] },
+            { x: 0, y: 3, c: [0] },
+            { x: 2, y: 3, c: [0] },
+        ]
+    );
+
     //Order is very important here, check for bigger variants first because it will (almost) always find the smaller variant in the bigger variant.
-    const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy), traditionalboyglasses, flip(traditionalboyglasses), shortboyglasses, flip(shortboyglasses)];
+    const variants = [
+        traditionalboy,
+        flip(traditionalboy), 
+        shortboy, flip(shortboy), 
+        traditionalboyglasses, 
+        flip(traditionalboyglasses), 
+        shortboyglasses, 
+        flip(shortboyglasses),
+        traditionalboybackpack,
+        flip(traditionalboybackpack),
+        shortboybackpack,
+        flip(shortboybackpack)
+    ];
 
     let canvasWidth;
     let canvasHeight;
