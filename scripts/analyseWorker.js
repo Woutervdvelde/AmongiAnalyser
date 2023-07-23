@@ -2,14 +2,15 @@ const worker_function = () => {
     onmessage = (message) => {
         canvasWidth = message.data[1];
         canvasHeight = message.data[2];
-        checkImageForAmongy(message.data[0]);
+        checkImageForAmongi(message.data[0]);
     }
 
     class Amongy {
         static Type = {
             SHORT: "short",
+            SHORT_GLASSES: "short with cool glasses",
             TRADITIONAL: "traditional",
-            SITTING: "sitting",
+            TRADITIONAL_GLASSES: "traditional with cool glasses",
             NONE: "none"
         }
 
@@ -108,7 +109,30 @@ const worker_function = () => {
             { x: -1, y: 1, c: [0] },
             { x: 0, y: 1, c: [0] },
             { x: 1, y: 1, c: [3] },
-            { x: 2, y: 1, c: [3, 4] },
+            { x: 2, y: 1, c: [3] },
+            { x: -1, y: 2, c: [0] },
+            { x: 0, y: 2, c: [0] },
+            { x: 1, y: 2, c: [0] },
+            { x: 2, y: 2, c: [0] },
+            { x: 0, y: 3, c: [0] },
+            { x: 1, y: 3, c: [0] },
+            { x: 2, y: 3, c: [0] },
+            { x: 0, y: 4, c: [0] },
+            { x: 2, y: 4, c: [0] },
+        ]
+    );
+
+    const traditionalboyglasses = new Variant(
+        Amongy.Type.TRADITIONAL_GLASSES,
+        false,
+        [
+            { x: 0, y: 0, c: [0] },
+            { x: 1, y: 0, c: [0] },
+            { x: 2, y: 0, c: [0] },
+            { x: -1, y: 1, c: [0] },
+            { x: 0, y: 1, c: [0] },
+            { x: 1, y: 1, c: [3] },
+            { x: 2, y: 1, c: [4] },
             { x: -1, y: 2, c: [0] },
             { x: 0, y: 2, c: [0] },
             { x: 1, y: 2, c: [0] },
@@ -131,7 +155,27 @@ const worker_function = () => {
             { x: -1, y: 1, c: [0] },
             { x: 0, y: 1, c: [0] },
             { x: 1, y: 1, c: [3] },
-            { x: 2, y: 1, c: [3, 4] },
+            { x: 2, y: 1, c: [3] },
+            { x: -1, y: 2, c: [0] },
+            { x: 0, y: 2, c: [0] },
+            { x: 1, y: 2, c: [0] },
+            { x: 2, y: 2, c: [0] },
+            { x: 0, y: 3, c: [0] },
+            { x: 2, y: 3, c: [0] },
+        ]
+    );
+
+    const shortboyglasses = new Variant(
+        Amongy.Type.SHORT_GLASSES,
+        false,
+        [
+            { x: 0, y: 0, c: [0] },
+            { x: 1, y: 0, c: [0] },
+            { x: 2, y: 0, c: [0] },
+            { x: -1, y: 1, c: [0] },
+            { x: 0, y: 1, c: [0] },
+            { x: 1, y: 1, c: [3] },
+            { x: 2, y: 1, c: [4] },
             { x: -1, y: 2, c: [0] },
             { x: 0, y: 2, c: [0] },
             { x: 1, y: 2, c: [0] },
@@ -142,14 +186,14 @@ const worker_function = () => {
     );
 
     //Order is very important here, check for bigger variants first because it will (almost) always find the smaller variant in the bigger variant.
-    const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy)];
+    const variants = [traditionalboy, flip(traditionalboy), shortboy, flip(shortboy), traditionalboyglasses, flip(traditionalboyglasses), shortboyglasses, flip(shortboyglasses)];
 
     let canvasWidth;
     let canvasHeight;
     const amongyCollection = [];
     const pixelMatrix = [[]];
 
-    const checkImageForAmongy = (data) => {
+    const checkImageForAmongi = (data) => {
         for (let y = 0; y < canvasWidth; y++)
             for (let x = 0; x < canvasHeight; x++) {
                 if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
