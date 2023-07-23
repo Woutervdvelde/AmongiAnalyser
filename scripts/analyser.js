@@ -1,5 +1,5 @@
 const analyseButton = document.getElementById("btn-analyse");
-let amongyCollection;
+let amongiCollection;
 
 /**
  * 
@@ -21,16 +21,16 @@ const checkImageForAmongi = () => {
     worker.postMessage([data, canvas.width, canvas.height]);
 
     worker.onmessage = (message) => {
-        amongyCollection = message.data[0];
+        amongiCollection = message.data[0];
         
-        draw(amongyCollection);
-        showStatistics(amongyCollection);
+        draw(amongiCollection);
+        showStatistics(amongiCollection);
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;
         worker.terminate();
     }
 }
 
-const filterCertaintyAmongy = (amongyCollection) => {
-    return amongyCollection.filter(a => a.certainty >= certaintyThreshold);
+const filterCertaintyAmongi = (amongiCollection) => {
+    return amongiCollection.filter(a => a.certainty >= certaintyThreshold);
 }

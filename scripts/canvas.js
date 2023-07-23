@@ -128,6 +128,22 @@ const reset = () => {
     setZoom(zoom);
 }
 
+const zoomToSpecific = (x, y) => {
+    reset();
+
+    let xOffset = camera.clientWidth / 2;
+    let yOffset = camera.clientHeight / 2;
+    x = x * -1 + xOffset;
+    y = y * -1 + yOffset;
+
+    currentX = x;
+    currentY = y;
+    zoom = zoomMax;
+
+    setTransform(x, y);
+    setZoom(zoomMax);
+}
+
 const initialiseCanvas = () => {
     ctx.drawImage(place, 0, 0);
 }
@@ -138,8 +154,8 @@ const addDarkOverlay = (percentage = .5) => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-const showAmongy = (amongyCollection) => {
-    let collection = filterCertaintyAmongy(amongyCollection);
+const showAmongi = (amongiCollection) => {
+    let collection = filterCertaintyAmongi(amongiCollection);
     collection.forEach(a => {
         a.pixels.forEach(p => {
             let [r, g, b] = p.color.split(",");
@@ -149,24 +165,24 @@ const showAmongy = (amongyCollection) => {
     })
 }
 
-const draw = (amongyCollection = null) => {
+const draw = (amongiCollection = null) => {
     initialiseCanvas();
-    if (!amongyCollection) return;
+    if (!amongiCollection) return;
 
     addDarkOverlay(overlayAlpha);
-    showAmongy(amongyCollection);
+    showAmongi(amongiCollection);
 }
 
 const setOverlayAlpha = (alpha) => {
     overlayAlpha = alpha;
-    //have to pull the amongy collection from global params
-    draw(amongyCollection);
+    //have to pull the amongi collection from global params
+    draw(amongiCollection);
 }
 
 const setCertaintyThreshold = (threshold) => {
     certaintyThreshold = threshold;
-    draw(amongyCollection);
-    showStatistics(amongyCollection);
+    draw(amongiCollection);
+    showStatistics(amongiCollection);
 }
 
 window.addEventListener("load", e => {

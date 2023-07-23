@@ -5,7 +5,7 @@ const worker_function = () => {
         checkImageForAmongi(message.data[0]);
     }
 
-    class Amongy {
+    class Amongi {
         static Type = {
             SHORT: "short",
             SHORT_GLASSES: "short with cool glasses",
@@ -70,7 +70,7 @@ const worker_function = () => {
     }
 
     class Variant {
-        type = Amongy.Type.NONE;
+        type = Amongi.Type.NONE;
         flipped = false;
         cords = [];
         context = [];
@@ -102,7 +102,7 @@ const worker_function = () => {
     }
 
     const traditionalboy = new Variant(
-        Amongy.Type.TRADITIONAL,
+        Amongi.Type.TRADITIONAL,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -125,7 +125,7 @@ const worker_function = () => {
     );
 
     const traditionalboyglasses = new Variant(
-        Amongy.Type.TRADITIONAL_BACKPACK,
+        Amongi.Type.TRADITIONAL_BACKPACK,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -148,7 +148,7 @@ const worker_function = () => {
     );
 
     const traditionalboybackpack = new Variant(
-        Amongy.Type.TRADITIONAL_BACKPACK,
+        Amongi.Type.TRADITIONAL_BACKPACK,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -171,7 +171,7 @@ const worker_function = () => {
     );
 
     const shortboy = new Variant(
-        Amongy.Type.SHORT,
+        Amongi.Type.SHORT,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -191,7 +191,7 @@ const worker_function = () => {
     );
 
     const shortboyglasses = new Variant(
-        Amongy.Type.SHORT_GLASSES,
+        Amongi.Type.SHORT_GLASSES,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -211,7 +211,7 @@ const worker_function = () => {
     );
 
     const shortboybackpack = new Variant(
-        Amongy.Type.SHORT_BACKPACK,
+        Amongi.Type.SHORT_BACKPACK,
         false,
         [
             { x: 0, y: 0, c: [0] },
@@ -247,7 +247,7 @@ const worker_function = () => {
 
     let canvasWidth;
     let canvasHeight;
-    const amongyCollection = [];
+    const amongiCollection = [];
     const pixelMatrix = [[]];
 
     const checkImageForAmongi = (data) => {
@@ -261,12 +261,12 @@ const worker_function = () => {
 
                     let context = getContextPixels(data, variants[i], x, y);
                     addVariantToMatrix(pixels);
-                    amongyCollection.push(new Amongy(variants[i], pixels, context));
+                    amongiCollection.push(new Amongi(variants[i], pixels, context));
                     break;
                 }
             }
 
-        postMessage([amongyCollection])
+        postMessage([amongiCollection])
     }
 
     const checkVariant = (data, variant, startX, startY) => {

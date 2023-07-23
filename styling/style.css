@@ -199,6 +199,7 @@ hr {
     justify-content: flex-start;
     flex: 1 0 21%;
     margin: .25rem;
+    cursor: pointer;
 }
 
 .stat-display {
