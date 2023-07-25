@@ -1,5 +1,8 @@
 * {
-    margin: 0; padding: 0; font-family: Poppins, sans-serif; user-select: none;
+    margin: 0;
+    padding: 0;
+    font-family: Poppins, sans-serif;
+    user-select: none;
 }
 
 :root {
@@ -18,8 +21,59 @@ hr {
 }
 
 @keyframes rotate {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader.active {
+    display: block;
+}
+
+.loader {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 2em;
+    background-color: white;
+    z-index: 99999;
+    text-align: center;
+}
+
+.loader p {
+    
+    margin-bottom: 1em;
+}
+
+.loader .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.loader .content-container {
+    max-width: 90%;
+    border: 3px solid black;
+    border-radius: var(--border-radius);
+    transition: transform 150ms ease-in-out;
+    cursor: pointer;
+}
+
+.loader .content-container:hover {
+    transform: translateY(-5px);
+}
+
+.loader .content-container img {
+    width: 400px;
+    max-width: 100%;
 }
 
 .load-icon {
@@ -70,7 +124,7 @@ hr {
     margin: .25rem;
 }
 
-.camera-controls-header > p {
+.camera-controls-header>p {
     display: none;
 }
 
@@ -83,7 +137,7 @@ hr {
     margin: 1rem;
 }
 
-.camera-controls-body > * {
+.camera-controls-body>* {
     width: 100%;
     display: block;
 }
@@ -124,7 +178,7 @@ hr {
     border-radius: var(--border-radius);
     overflow: hidden;
 }
-  
+
 .camera-controls-body input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 15px;
@@ -136,7 +190,7 @@ hr {
     box-shadow: -410px 0 0 400px var(--accent-color-100);
 }
 
-.camera-controls:hover > .camera-controls-header > p {
+.camera-controls:hover>.camera-controls-header>p {
     display: inline-block;
 }
 
@@ -154,6 +208,7 @@ hr {
 }
 
 .header {
+    margin-top: 2em;
     text-align: center;
 }
 
@@ -216,9 +271,38 @@ hr {
     padding-left: .5rem;
 }
 
-    /* Mobile Devices (Smartphones) */
-    @media screen and (max-width: 767px) {
-        #camera {
-            width: 90vw;
-        }
+.extra-stats h1 {
+    text-align: center;
+    margin: 1rem;
+}
+
+.extra-stats div {
+    width: 75vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.extra-stats .stat {
+    padding: 1em;
+    border-radius: var(--border-radius);
+    border: 3px solid black;
+}
+
+footer {
+    width: 90vw;
+    margin: 4em auto 1em auto;
+}
+
+footer span {
+    font-size: .75em;
+}
+
+/* Mobile Devices (Smartphones) */
+@media screen and (max-width: 767px) {
+
+    #camera,
+    .extra-stats div {
+        width: 90vw;
     }
+}

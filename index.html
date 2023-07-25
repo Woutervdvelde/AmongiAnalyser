@@ -21,7 +21,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons&family=Poppins:wght@300;400&display=swap"
         rel="stylesheet">
-
     <link rel="stylesheet" href="styling/style.css">
     <title>Amongi Analyser</title>
 </head>
@@ -30,6 +29,21 @@
     <div class="header">
         <h1>Amongi Analyser</h1>
         <p>An app that analyses pixel art in search for amongi. Find your favorite amongi in r/place</p>
+    </div>
+
+    <div class="loader active">
+        <h2>Select an image to analyse</h2>
+        <p>Click on one of the cards to select</p>
+        <div class="container">
+            <div class="content-container" onclick="start('place2022')">
+                <img src="./resources/place_2022.png"/>
+                <h3>Place 2022</h3>
+            </div>
+            <div class="content-container" onclick="start('place2022')">
+                <img src="./resources/place_2022.png"/>
+                <h3>Place 2022</h3>
+            </div>
+        </div>
     </div>
 
     <div id="camera">
@@ -74,11 +88,29 @@
             <h1>Found <span id="stats-count-total">0</span> amongi</h1>
         </div>
         <div id="stats-container" class="stats-body">
-            
+
         </div>
     </div>
 
+    <!-- <div class="extra-stats">
+        <h1>Other statistics</h1>
+        <div>
+            <div class="stat">
+                <span class="property">Most used body color</span>
+                <canvas id="body_color_graph"></canvas>
+            </div>
+        </div>
+    </div> -->
+
+    <footer>
+        <p>Created by <a href="https://www.linkedin.com/in/wouter-van-der-velde/">Wouter van der Velde</a></p>
+        <span>Despite our best efforts and advanced algorithms, some Amongis might disguise themselves as innocent
+            pixels, causing the occasional misinterpretation. We strive for accuracy, but the complexities of pixel art
+            can challenge even the most skilled Amongi hunters.</span>
+    </footer>
+
     <script src="scripts/placeBase64.js"></script>
+    <script src="scripts/loader.js"></script>
     <script src="scripts/canvas.js"></script>
     <script src="scripts/analyseWorker.js"></script>
     <script src="scripts/statistics.js"></script>

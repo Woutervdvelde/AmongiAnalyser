@@ -1,5 +1,6 @@
 const statsContainer = document.getElementById("stats-container");
 const totalAmongiCount = document.getElementById("stats-count-total");
+// const colorCountContainer = document.querySelector(".");
 
 const createStatContainer = (name, count, amongi) => {
     const container = document.createElement("DIV");
@@ -63,10 +64,28 @@ const showStatistics = (amongiCollection) => {
         let amongi = variantCollection[Math.floor(Math.random() * count)];
         let element = createStatContainer(name, count, amongi);
 
-        while (containers[count]) count++;
+        while (containers[count]) count++; //if there is already a container with this count, increment it
         containers[count] = element;
     }
 
     totalAmongiCount.innerText = collection.length;
     Object.values(containers).reverse().forEach(e => statsContainer.appendChild(e));
+
+    // showBodyColorGraph();
+}
+
+const filterColors = () => {
+    let collection = filterCertaintyAmongi(amongiCollection);
+    let colorCount = {};
+    collection.forEach(a =>
+        colorCount[a.pixels[0].color]
+            ? colorCount[a.pixels[0].color]++
+            : colorCount[a.pixels[0].color] = 1
+    );
+    return colorCount;
+}
+
+const showBodyColorGraph = () => {
+    const colors = filterColors();
+    const ctx = document.getElementById("body_color_graph").getContext('2d');
 }

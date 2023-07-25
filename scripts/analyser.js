@@ -28,6 +28,8 @@ const checkImageForAmongi = () => {
         analyseButton.innerHTML = "Analyse";
         analyseButton.disabled = false;
         worker.terminate();
+
+
     }
 }
 

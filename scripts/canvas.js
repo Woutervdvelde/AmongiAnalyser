@@ -17,8 +17,7 @@ document.querySelectorAll(".canvasControlInput").forEach(elem => {
     }
 });
 
-const place = new Image();
-place.src = base64Image;
+const sourceImage = new Image();
 
 let dragging = false;
 let currentX = 0;
@@ -98,9 +97,9 @@ camera.ontouchstart = setTouches;
 camera.ontouchmove = (e) => {
     if (e.target.closest(".camera-controls")) return;
     e.preventDefault(); //prevent page scrolling and zooming
-    if (e.touches.length > 1) 
+    if (e.touches.length > 1)
         touchZoom(e);
-    else 
+    else
         touchMove(e);
 }
 
@@ -145,7 +144,8 @@ const zoomToSpecific = (x, y) => {
 }
 
 const initialiseCanvas = () => {
-    ctx.drawImage(place, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(sourceImage, 0, 0);
 }
 
 const addDarkOverlay = (percentage = .5) => {
@@ -185,11 +185,20 @@ const setCertaintyThreshold = (threshold) => {
     showStatistics(amongiCollection);
 }
 
-window.addEventListener("load", e => {
-    setTransform(0, 0);
-    draw();
-    overlayAlphaInput.value = overlayAlpha * 100;
-    certaintyThresholdInput.value = certaintyThreshold * 100;
-    overlayAlphaInput.nextElementSibling.innerText = `${overlayAlpha * 100}%`;
-    certaintyThresholdInput.nextElementSibling.innerText = `${certaintyThreshold * 100}%`;
-});
+function start(imageName) {
+    document.querySelector(".loader").classList.remove("active");
+    sourceImage.onload = () => {
+        canvas.width = sourceImage.width;
+        canvas.height = sourceImage.height;
+
+        setTransform(0, 0);
+        draw();
+        overlayAlphaInput.value = overlayAlpha * 100;
+        certaintyThresholdInput.value = certaintyThreshold * 100;
+        overlayAlphaInput.nextElementSibling.innerText = `${overlayAlpha * 100}%`;
+        certaintyThresholdInput.nextElementSibling.innerText = `${certaintyThreshold * 100}%`;
+
+        reset();
+    };
+    sourceImage.src = images[imageName];
+}
