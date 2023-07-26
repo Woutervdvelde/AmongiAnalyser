@@ -1,7 +1,16 @@
 const worker_function = () => {
+    let canvasWidth;
+    let canvasHeight;
+    let offsetX;
+    let offsetY;
+    const amongiCollection = [];
+    const pixelMatrix = [[]];
+    
     onmessage = (message) => {
         canvasWidth = message.data[1];
         canvasHeight = message.data[2];
+        offsetX = message.data[3];
+        offsetY = message.data[4];
         checkImageForAmongi(message.data[0]);
     }
 
@@ -78,7 +87,7 @@ const worker_function = () => {
         constructor(type, flipped, cords) {
             this.type = type;
             this.flipped = flipped;
-            this.cords = cords;
+            this.cords = cords.map(c => { return { x: c.x + offsetX, y: c.y + offsetY, c: c.c } });
             this.context = this.#calculateContext(cords);
         }
 
@@ -244,11 +253,6 @@ const worker_function = () => {
         shortboybackpack,
         flip(shortboybackpack)
     ];
-
-    let canvasWidth;
-    let canvasHeight;
-    const amongiCollection = [];
-    const pixelMatrix = [[]];
 
     const checkImageForAmongi = (data) => {
         for (let y = 0; y < canvasHeight; y++)
