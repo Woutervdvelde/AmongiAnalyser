@@ -1,6 +1,6 @@
 const images = {
     place2022: place2022,
-    place2023: place2022,
+    place2023: place2023,
 };
 
 let selectedImage = images[2];
