@@ -251,8 +251,8 @@ const worker_function = () => {
     const pixelMatrix = [[]];
 
     const checkImageForAmongi = (data) => {
-        for (let y = 0; y < canvasWidth; y++)
-            for (let x = 0; x < canvasHeight; x++) {
+        for (let y = 0; y < canvasHeight; y++)
+            for (let x = 0; x < canvasWidth; x++) {
                 if (pixelMatrix[x] && pixelMatrix[x][y]) continue;
 
                 for (let i = 0; i < variants.length; i++) {
@@ -265,7 +265,6 @@ const worker_function = () => {
                     break;
                 }
             }
-
         postMessage([amongiCollection])
     }
 
