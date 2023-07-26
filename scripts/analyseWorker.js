@@ -125,7 +125,7 @@ const worker_function = () => {
     );
 
     const traditionalboyglasses = new Variant(
-        Amongi.Type.TRADITIONAL_BACKPACK,
+        Amongi.Type.TRADITIONAL_GLASSES,
         false,
         [
             { x: 0, y: 0, c: [0] },
